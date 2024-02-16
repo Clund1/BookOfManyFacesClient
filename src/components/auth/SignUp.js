@@ -36,7 +36,7 @@ const SignUp = (props) => {
 			.then((res) => setUser(res.data.user))
 			.then(() =>
 				msgAlert({
-					heading: 'Sign Up Success',
+					heading: 'A New Champion Rises!',
 					message: messages.signUpSuccess,
 					variant: 'success',
 				})
@@ -47,7 +47,7 @@ const SignUp = (props) => {
                 setPassword('')
                 setPasswordConfirmation('')
 				msgAlert({
-					heading: 'Sign Up Failed with error: ' + error.message,
+					heading: 'You Are Forbidden Here! ' + error.message,
 					message: messages.signUpFailure,
 					variant: 'danger',
 				})

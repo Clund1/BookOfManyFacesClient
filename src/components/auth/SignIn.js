@@ -8,23 +8,10 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 const SignIn = (props) => {
-	// constructor(props) {
-	// 	super(props)
-
-	// 	this.state = {
-	// 		email: '',
-	// 		password: '',
-	// 	}
-	// }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
-
-	// handleChange = (event) =>
-	// 	this.setState({
-	// 		[event.target.name]: event.target.value,
-	// 	})
 
 	const onSignIn = (event) => {
 		event.preventDefault()
@@ -34,10 +21,14 @@ const SignIn = (props) => {
         const credentials = {email, password}
 
 		signIn(credentials)
-			.then((res) => setUser(res.data.user))
+			.then((res) => {
+                setUser(res.data.user)
+                const userJSON = JSON.stringify(res.data.user)
+                localStorage.setItem('user', userJSON)
+            })
 			.then(() =>
 				msgAlert({
-					heading: 'Sign In Success',
+					heading: 'The Champion Has Signed In!',
 					message: messages.signInSuccess,
 					variant: 'success',
 				})
@@ -47,7 +38,7 @@ const SignIn = (props) => {
                 setEmail('')
                 setPassword('')
 				msgAlert({
-					heading: 'Sign In Failed with error: ' + error.message,
+					heading: 'You Are Forbidden Here! ' + error.message,
 					message: messages.signInFailure,
 					variant: 'danger',
 				})
@@ -66,7 +57,7 @@ const SignIn = (props) => {
                             type='email'
                             name='email'
                             value={email}
-                            placeholder='Enter email'
+                            placeholder='Please Enter email'
                             onChange={e => setEmail(e.target.value)}
                         />
                     </Form.Group>
@@ -77,11 +68,11 @@ const SignIn = (props) => {
                             name='password'
                             value={password}
                             type='password'
-                            placeholder='Password'
+                            placeholder='New Password'
                             onChange={e => setPassword(e.target.value)}
                         />
                     </Form.Group>
-                    <Button variant='primary' type='submit'>
+                    <Button className='m-1' variant='primary' type='submit'>
                         Submit
                     </Button>
                 </Form>

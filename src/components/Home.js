@@ -1,10 +1,13 @@
+import CharacterIndex from './characters/CharacterIndex'
+
 const Home = (props) => {
-	// const { msgAlert, user } = props
-	console.log('props in home', props)
+	const { msgAlert } = props
 
 	return (
 		<>
-			<h2>Home Page</h2>
+		<h2>Welcome To The Book of Many Faces</h2>
+		
+		<CharacterIndex msgAlert={msgAlert} />
 		</>
 	)
 }

@@ -33,7 +33,7 @@ const ChangePassword = (props) => {
 		changePassword(passwords, user)
 			.then(() =>
 				msgAlert({
-					heading: 'Change Password Success',
+					heading: 'Password Changed Successfully, Champion!',
 					message: messages.changePasswordSuccess,
 					variant: 'success',
 				})
@@ -43,7 +43,7 @@ const ChangePassword = (props) => {
 				setOldPassword('')
                 setNewPassword('')
 				msgAlert({
-					heading: 'Change Password Failed with error: ' + error.message,
+					heading: 'There is a problem, Champion. ' + error.message,
 					message: messages.changePasswordFailure,
 					variant: 'danger',
 				})
@@ -58,7 +58,7 @@ const ChangePassword = (props) => {
                 <h3>Change Password</h3>
                 <Form onSubmit={onChangePassword}>
                     <Form.Group controlId='oldPassword'>
-                        <Form.Label>Old password</Form.Label>
+                        <Form.Label>Old Password</Form.Label>
                         <Form.Control
                             required
                             name='oldPassword'

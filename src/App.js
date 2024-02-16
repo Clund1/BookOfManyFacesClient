@@ -1,5 +1,5 @@
 // import React, { Component, Fragment } from 'react'
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -12,18 +12,28 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
+import CharacterShow from './components/characters/CharacterShow'
+import CharacterCreate from './components/characters/CharacterCreate'
 
 const App = () => {
 
-  const [user, setUser] = useState(null)
-  const [msgAlerts, setMsgAlerts] = useState([])
+	const [user, setUser] = useState(null)
+	const [msgAlerts, setMsgAlerts] = useState([])
 
-  console.log('user in app', user)
-  console.log('message alerts', msgAlerts)
-  const clearUser = () => {
-    console.log('clear user ran')
-    setUser(null)
-  }
+	useEffect(() => {
+		const loggedInUser = localStorage.getItem('user')
+	
+		if (loggedInUser) {
+			const foundUser = JSON.parse(loggedInUser)
+			setUser(foundUser)
+		}
+	}, [])
+
+	const clearUser = () => {
+		console.log('clear user ran')
+		localStorage.removeItem('user')
+		setUser(null)
+	}
 
 	const deleteAlert = (id) => {
 		setMsgAlerts((prevState) => {
@@ -36,7 +46,7 @@ const App = () => {
 		setMsgAlerts(() => {
 			return (
 				[{ heading, message, variant, id }]
-      )
+			)
 		})
 	}
 
@@ -53,21 +63,35 @@ const App = () => {
 						path='/sign-in'
 						element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
 					/>
-          <Route
-            path='/sign-out'
-            element={
-              <RequireAuth user={user}>
-                <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='/change-password'
-            element={
-              <RequireAuth user={user}>
-                <ChangePassword msgAlert={msgAlert} user={user} />
-              </RequireAuth>}
-          />
+					<Route
+						path='/sign-out'
+						element={
+						<RequireAuth user={user}>
+							<SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+						</RequireAuth>
+						}
+					/>
+					<Route
+						path='/change-password'
+						element={
+						<RequireAuth user={user}>
+							<ChangePassword msgAlert={msgAlert} user={user} />
+						</RequireAuth>}
+					/>
+					<Route 
+						path='/create-character'
+						element={
+							<RequireAuth user={user}>
+								<CharacterCreate msgAlert={msgAlert} user={user} />
+							</RequireAuth>
+						}
+					/>
+					<Route 
+						path='characters/:charId'
+						element={
+							<CharacterShow user={user} msgAlert={msgAlert}/>
+						}
+					/>
 				</Routes>
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert
