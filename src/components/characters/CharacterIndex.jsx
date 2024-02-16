@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { getAllChars } from "../../api/character"
 // RENDERING
-import LoadingScreen from '../shared/LoadingScreen'
+// import LoadingScreen from '../shared/LoadingScreen'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import messages from '../shared/AutoDismissAlert/messages'
@@ -38,15 +38,15 @@ const CharacterIndex = (props) => {
     }, [])
     
     // If Error
-    if (error) {
-        return <LoadingScreen />
-    }
+    // if (error) {
+    //     return <LoadingScreen />
+    // }
     // If No Data
-    if (!characters) {
-        return <LoadingScreen />
-    } else if (characters.length === 0) {
-        return <p> Nobody Here But Us Goblins... </p>
-    }
+    // if (!characters) {
+    //     return <LoadingScreen />
+    // } else if (characters.length === 0) {
+    //     return <p> Nobody Here But Us Goblins... </p>
+    // }
     const charCards = characters.map(character => (
         <Card key={character.id} style={{ width: '30%', margin: 5 }} >
             <Card.Header>{character.namePlate}</Card.Header>
