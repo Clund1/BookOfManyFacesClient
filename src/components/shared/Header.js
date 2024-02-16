@@ -49,11 +49,6 @@ const alwaysOptions = (
 const Header = ({ user }) => (
 	<Navbar bg='dark' variant='light' expand='md'>
 		<Navbar.Brand className='m-2'>
-			{/* <img
-	        	alt=""
-            	src="../public/imgs/bookIcon.png"
-        		className="block align-top"
-            /> */}
         </Navbar.Brand>
 		<Navbar.Toggle aria-controls='basic-navbar-nav' />
 		<Navbar.Collapse id='basic-navbar-nav'>
