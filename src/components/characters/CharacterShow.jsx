@@ -4,7 +4,6 @@ import { Container, Card, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { getOneChar, RemoveCharacter, updateCharacter } from '../../api/character'
 import LoadingScreen from '../shared/LoadingScreen'
-import messages from '../shared/AutoDismissAlert/messages'
 import EditCharacterModal from './EditCharModal'
 import SkillShow from '../skills/SkillShow'
 import NewSkillModal from '../skills/NewSkillModal'
@@ -25,18 +24,16 @@ const CharacterShow = (props) => {
 
     const [editModalShow, setEditModalShow] = useState(false)
     const [skillModalShow, setSkillModalShow] = useState(false)
-    const [itemModalShow, setItemModalShow] =useState(false)
+    const [itemModalShow, setItemModalShow] = useState(false)
 
     const [updated, setUpdated] = useState(false)
     const navigate = useNavigate()
-    console.log('CharID' + charId)
     useEffect(() => {
         getOneChar(charId)
             .then(res => setChar(res.data.character))
             .catch(err => {
                 msgAlert({
                     heading: 'Oh..',
-                    message: messages.generalError,
                     variant: 'danger'
                 })
             })
@@ -55,7 +52,6 @@ const CharacterShow = (props) => {
         .catch(err => {
             msgAlert({
                 heading: 'Oh.. You are still here?',
-                message: messages.generalError,
                 variant: 'danger'
             })
         })
@@ -110,10 +106,10 @@ const CharacterShow = (props) => {
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        <small>Age: {character.age.enum}</small>
-                        <small>Level: {character.level.enum}</small>
-                        <small>Race: {character.race.enum}</small>
-                        <small>Class: {character.class.enum}</small>
+                        <small> Age: {character.age} </small>
+                        <small> Level: {character.level} </small>
+                        <small> Race: {character.race} </small>
+                        <small> Class: {character.class} </small>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
